@@ -5,12 +5,10 @@ import scipy.special as special
 import math
 import Gnuplot
 import pickle
-from stochastic import bisection, newton, heuristic
+from stochastic import bisection, newton, heuristic, secant
 from lfit import LinearFit
 
 def sigmoid(x, a, b):
-    if (-a * (x-b)) > 100:
-        return 1.0
     return 1.0/(1.0+math.exp(-a*(x-b)))
 
 def linear(x, a, b):
@@ -29,6 +27,12 @@ def bordel(x):
         return 0.3 * x - 1.6
     return 0.118 * (x - 3) + 0.07 * x
 
+def sgn(x):
+    if x < 0:
+        return -1.0
+    else:
+        return 1.0
+
 global minx, maxx
 minx, maxx = -20, 20
 g = Gnuplot.Gnuplot()
@@ -37,8 +41,6 @@ g('set log xy')
 def initialize(functions):
     for f in functions:
         f.root = optimize.brentq(lambda x: f(x), minx, maxx)
-        #f.lbound = optimize.brentq(lambda x: f(x) - 0.1, minx, maxx)
-        #f.ubound = optimize.brentq(lambda x: f(x) - 0.9, minx, maxx)
 
 def measure(function, x):
     if 2 * random.random() < (1.0 + function(x)):
@@ -51,19 +53,19 @@ def stdev(f, alg, d, n, m, randomness = 100.0):
     F = lambda x: measure(f, x)
     s = [0.0 for i in range(n)]
     for j in range(m):
-        a = d/4.0*(-1.0 - 2.0 * j / m)
-        b = d/4.0*(3.0 - 2.0 * j / m)
-        randfact = random.random() * randomness + 1/randomness
-        alpha = (min(f(b), 1.0) - max(f(a), -1.0)) / d * randfact
-        result = alg(F, (a,b), alpha, n)
+        #a = d/4.0*(-1.0 - 2.0 * j / m)
+        #b = d/4.0*(3.0 - 2.0 * j / m)
+        a = -0.005 * d
+        b = 0.995 * d
+        result = alg(F, (a,b), n)
         s = [s[i] + (result[i]-f.root)**2 for i in range(n)]
     return [math.sqrt(s[i]/m) for i in range(n)]
 
-def testuj(functions, alghoritms, d, steps, prec):
+def testuj(functions, alghoritms, d, steps, prec, randomness = 100.0):
     initialize(functions)
     return [
         [
-            stdev(i, j, d, steps, prec) 
+            stdev(i, j, d, steps, prec, randomness) 
             for i in functions
         ] 
         for j in alghoritms
@@ -104,46 +106,39 @@ def sklon(data):
     return lfit.a
 
 
-def test(functions, alghoritms, d, steps, prec):
-    initialize(functions)
-    for i in functions:
-        for j in alghoritms:
-            vysl = stdev(i, j, d, steps, prec)
-            data.append(Gnuplot.Data(range(0, steps), vysl))
-            apply(g.plot, data)
-        raw_input("Press Enter to continue")
-
-
-    apply(g.plot, data)
-
-
 testSet = [
-    lambda x: linear(x, 1, 0),
-    lambda x: x**3,
-    lambda x: sigmoid(x, 1, 0) - 0.5,
-    lambda x: erf(x, 1, 0) - 0.5,
-    lambda x: cauchy(x, 1, 0) - 0.5,
+#    lambda x: linear(x, 1.0, 0),
+#    lambda x: x**3,
+    lambda x: 2 * sigmoid(x, 3.0, 0.0) - 1.0,
+#    lambda x: 2 * erf(x, 1.0, 0) - 1.0,
+#    lambda x: 2 * cauchy(x, 1.0, 0) - 1.0,
 ]
 
 
+
 algs = [
-    bisection,
-    lambda f, interval, alpha, n: 
-        newton(f, interval, alpha, n, lambda x: x**0.5 + 1),
-    lambda f, interval, alpha, n: 
-        heuristic(f, interval, alpha, n, lambda x: x**0.5 + 1),
+#    bisection,
+#    lambda f, interval,  n: 
+#        newton(f, interval,  n, lambda x: x**0.5 + 1),
+    lambda f, interval,  n: 
+        heuristic(f, interval,  n, lambda x: x**0.5 + 1),
+    secant 
         ]
 
-result = testuj(testSet, algs, 100, 1000, 100)
-#f = open('vystup', 'wb')
+result = testuj(testSet, algs, 1000.0, 256, 100, 1.0)
+#f = open('vystup1l1', 'wb')
 #pickle.dump(result, f)
 #f.close()
-#f = open('vystup', 'rb')
+#f = open('vystup10l100', 'rb')
 #result = pickle.load(f)
 
-average = averageData(result)
-for i in average:
-    print round(-sklon(i) * 100)
-
+#average = averageData(result)
+#for i in average:
+    #print round(-sklon(i) * 100)
 averagePlot(result)
 basicPlot(result)
+
+
+#sigmoska = lambda x: measure(lambda y: 2 * sigmoid(y, 6.0, 0.0)-1.0, x)
+
+#print secant(sigmoska, [-5.0, 1000], 100)
