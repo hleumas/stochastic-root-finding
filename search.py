@@ -3,12 +3,16 @@ import random
 import scipy.optimize as optimize
 import scipy.special as special
 import math
-import Gnuplot
-import pickle
+import cPickle
 from stochastic import bisection, newton, heuristic, secant
 from lfit import LinearFit
+import cProfile
 
 def sigmoid(x, a, b):
+    if a * x > 500.0:
+        return 1.0
+    if a * x < -500.0:
+        return 0.0
     return 1.0/(1.0+math.exp(-a*(x-b)))
 
 def linear(x, a, b):
@@ -35,110 +39,125 @@ def sgn(x):
 
 global minx, maxx
 minx, maxx = -20, 20
-g = Gnuplot.Gnuplot()
-g('set log xy')
 
 def initialize(functions):
     for f in functions:
         f.root = optimize.brentq(lambda x: f(x), minx, maxx)
 
-def measure(function, x):
-    if 2 * random.random() < (1.0 + function(x)):
-        return 1
-    else:
-        return -1
+def measure(function):
+    def m(x):
+        if 2 * random.random() < (1.0 + function(x)):
+            return 1
+        else:
+            return -1
+    return m
 
 
-def stdev(f, alg, d, n, m, randomness = 100.0):
-    F = lambda x: measure(f, x)
-    s = [0.0 for i in range(n)]
-    for j in range(m):
-        #a = d/4.0*(-1.0 - 2.0 * j / m)
-        #b = d/4.0*(3.0 - 2.0 * j / m)
-        a = -0.005 * d
-        b = 0.995 * d
-        result = alg(F, (a,b), n)
-        s = [s[i] + (result[i]-f.root)**2 for i in range(n)]
-    return [math.sqrt(s[i]/m) for i in range(n)]
-
-def testuj(functions, alghoritms, d, steps, prec, randomness = 100.0):
+def testuj(functions, alghoritms, d, displ, steps, prec):
+    a = lambda k : d * (-displ -  k * (1.0 - 2*displ) / prec)
+    (1.0 - 2*displ) / prec
     initialize(functions)
-    return [
+    result = [
         [
-            stdev(i, j, d, steps, prec, randomness) 
+            [
+                j(measure(i), (a(k), a(k) + d), steps)
+                for k in xrange(prec)
+            ]
             for i in functions
         ] 
         for j in alghoritms
     ]
+    return {
+            'algs'   : len(alghoritms),
+            'funcs'  : len(functions),
+            'prec'   : prec,
+            'steps'  : steps,
+            'result' : result,
+    }
 
-def basicPlot(data):
-    for i in range(len(data[0])):
-        grafdata = []
-        for j in range(len(data)):
-            grafdata.append(Gnuplot.Data(range(0, len(data[j][i])), data[j][i]))
-            apply(g.plot, grafdata)
-        raw_input("Press Enter to continue")
-
-def averageData(data):
-    average = []
-    for alg in data:
-        sum = [0.0 for func in alg[0]]
-        for func in alg:
-            for k, v in enumerate(func):
-                sum[k] += v / len(alg)
-        average.append(sum)
-
-    return average
-
-def averagePlot(data):
-    average = averageData(data)
-
-    grafdata = []
-    for alg in average:
-        grafdata.append(Gnuplot.Data(range(0, len(alg)), alg))
-        apply(g.plot, grafdata)
-    raw_input('Press Enter to continue...')
-
-def sklon(data):
-    lfit = LinearFit()
-    for i, j in enumerate(data):
-        lfit.append(math.log(i+1), math.log(j))
-    return lfit.a
 
 
 testSet = [
-#    lambda x: linear(x, 1.0, 0),
-#    lambda x: x**3,
-    lambda x: 2 * sigmoid(x, 3.0, 0.0) - 1.0,
-#    lambda x: 2 * erf(x, 1.0, 0) - 1.0,
-#    lambda x: 2 * cauchy(x, 1.0, 0) - 1.0,
+    lambda x: linear(x, 1.0, 0),
+    lambda x: x**3,
+    lambda x: 2 * sigmoid(x, 1.0, 0.0) - 1.0,
+    lambda x: erf(x, 1.0, 0),
+    lambda x: 2 * cauchy(x, 1.0, 0) - 1.0,
+    lambda x: sgn(x),
 ]
 
 
 
+
 algs = [
-#    bisection,
-#    lambda f, interval,  n: 
-#        newton(f, interval,  n, lambda x: x**0.5 + 1),
+    bisection,
+    lambda f, interval,  n: 
+        newton(f, interval,  n, lambda x: x**0.5 + 1),
     lambda f, interval,  n: 
         heuristic(f, interval,  n, lambda x: x**0.5 + 1),
-    secant 
+    lambda f, interval,  n: 
+        secant(f, interval,  n, lambda x: 1.3**x),
         ]
 
-result = testuj(testSet, algs, 1000.0, 256, 100, 1.0)
-#f = open('vystup1l1', 'wb')
-#pickle.dump(result, f)
-#f.close()
-#f = open('vystup10l100', 'rb')
-#result = pickle.load(f)
 
-#average = averageData(result)
-#for i in average:
-    #print round(-sklon(i) * 100)
-averagePlot(result)
-basicPlot(result)
+"""d = 1024.0
+for i in xrange(14):
+    result = testuj(testSet, algs, d, 0.1, 128, 1000)
+    f = open('vystup_' + str(i) + '.bc', 'wb')
+    pickle.dump((result, d), f)
+    f.close()
+    d /= 2.0
+"""
+newtonovia = [
+    lambda f, interval,  n: 
+        heuristic(f, interval,  n, lambda x: 1),
+    lambda f, interval,  n: 
+        heuristic(f, interval,  n, lambda x: x**0.1),
+    lambda f, interval,  n: 
+        heuristic(f, interval,  n, lambda x: x**0.2),
+    lambda f, interval,  n: 
+        heuristic(f, interval,  n, lambda x: x**0.3),
+    lambda f, interval,  n: 
+        heuristic(f, interval,  n, lambda x: x**0.4),
+    lambda f, interval,  n: 
+        heuristic(f, interval,  n, lambda x: x**0.5),
+    lambda f, interval,  n: 
+        heuristic(f, interval,  n, lambda x: x**0.6),
+    lambda f, interval,  n: 
+        heuristic(f, interval,  n, lambda x: x**0.7),
+    lambda f, interval,  n: 
+        heuristic(f, interval,  n, lambda x: x**0.8),
+    lambda f, interval,  n: 
+        heuristic(f, interval,  n, lambda x: x**0.9),
+        ]
+secantovia = [
+    lambda f, interval,  n: 
+        secant(f, interval,  n, lambda x: 1.1**x),
+    lambda f, interval,  n: 
+        secant(f, interval,  n, lambda x: 1.3**x),
+    lambda f, interval,  n: 
+        secant(f, interval,  n, lambda x: 1.7**x),
+    lambda f, interval,  n: 
+        secant(f, interval,  n, lambda x: 2.2**x),
+    lambda f, interval,  n: 
+        secant(f, interval,  n, lambda x: 2.8**x),
+    lambda f, interval,  n: 
+        secant(f, interval,  n, lambda x: 3.5**x),
+    lambda f, interval,  n: 
+        secant(f, interval,  n, lambda x: 4.0**x),
+    lambda f, interval,  n: 
+        secant(f, interval,  n, lambda x: 4.5**x),
+    lambda f, interval,  n: 
+        secant(f, interval,  n, lambda x: 5**x),
+        ]
+def mymain():
+    #for i in [0.01, 0.1, 0.2, 0.4, 0.6, 0.8, 1.0]:
+        f = open('AllFunctions', 'wb')
+        d = 5.0
+        funkcia = lambda x: i * sgn(x)
+        result = testuj(testSet, algs, d, 0.1, 1200, 1000)
+        cPickle.dump((result, d), f)
+        f.close()
 
-
-#sigmoska = lambda x: measure(lambda y: 2 * sigmoid(y, 6.0, 0.0)-1.0, x)
-
-#print secant(sigmoska, [-5.0, 1000], 100)
+mymain()
+#cProfile.run('mymain()', 'profileinfo')

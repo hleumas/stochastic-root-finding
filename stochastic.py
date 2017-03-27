@@ -6,7 +6,7 @@ from lfit import LinearFit
 def bisection(f, interval, n):
     a, b = float(interval[0]), float(interval[1])
     x = (a+b)/2
-    stepsize = 2.0/(b-a)
+    stepsize = (b-a)
     positions = [x]
     for i in range(1, n + 1):
         x -= stepsize / i * f(x)
@@ -31,16 +31,10 @@ def heuristic(f, interval, n, m):
         lfit.append(x, value)
         sklon = lfit.a
         if sklon <= 0 or math.isnan(sklon):
-            #sklon = alpha
             sklon = abs(sucval / (b-a) / i)
-#            x = a if value < 0 else b
 
-        #else:
-        #if 1.0 * value / sklon / i > b - a:
         if abs(1.0 * value / sklon) > prejdene:
-            #sklon = abs(value) / i / prejdene
             sklon = abs(sucval / (b-a) / i)
-            #sklon = alpha
 
         x -= 1.0 * value / sklon / i
         prejdene += abs(1.0 * value / sklon / i)
@@ -84,11 +78,11 @@ def newton(f, interval, n, m):
 
     return positions
 
-def secant(f, interval, n):
+def secant(f, interval, n, m):
 
-    m = lambda x: 1.3**x
+    #m = lambda x: 5**x#1.3**x
     points = [[float(interval[0]), -1.0, 1000], [float(interval[1]), 1.0, 1000]]
-    positions = [points[0][0], points[0][1]]
+    positions = [points[0][0], points[1][0]]
 
     def premeraj(j, k):
         if points[j][2] >= k:
