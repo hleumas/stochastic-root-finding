@@ -1,0 +1,55 @@
+\section{Motivácia binárneho SRFP}
+Algoritmy, ktoré sme si zatiaľ predstavili, boli navrhnuté pre ľubovoľný
+experiment s~ohraničenými hodnotami výsledkov. To je nepochybne veľmi užitočná
+vlastnosť týchto algoritmov, v~praxi sa však vo veľkej miere stretávame so
+situáciami, ktoré majú binárny charakter. Študenti testujú či sa im podarí
+obhájiť bakalársku prácu, alebo nepodarí, pyrotechnika zaujíma čí bomba
+vybuchne, alebo nevybuchne a lekára trápi, či sa pacient uzdraví, alebo zomrie.
+Preto sme sa rozhodli v~tejto práci zamerať na aplikáciu SRFP algoritmov na
+problémy s~binárnymi výsledkami. Doteraz sme uviedli len veľmi všeobecné
+príklady reálnych aplikácii, na konkrétnom príklade si preto teraz predvedieme
+užitočnosť binárneho SRFP pri riešení otázky
+\subsection{Prečo ľudia konajú dobro?}
+Na riešenie tohto problému sa podujali Tomáš Kulich a Jaroslav
+Flegr\cite{kulich}. Ako vo svojej práci uvádzajú, pôvod altruistického
+chovania, teda chovania užitočného pre spoločnosť ako celok, avšak nevýhodného
+pre jedinca, bol dlho orieškom pre evolučných biológov. Skupine s~altruistickými
+jedincami sa ako celku darí lepšie než ostatným skupinám, no altruistický
+jedinci v~skupine sú oproti sebcom znevýhodnení a postupne vymierajú.
+Pred nejakou dobou vznikla hypotéza, že ak altruizmus kontroluje viacero na sebe
+nezávislých génov, ktorých vhodná kombinácia vytvorí altruistického jedinca,
+môže v~spoločnosti existovať stabilná rovnováha medzi altruistami a sebcami. 
+
+Autori sa pokúsili overiť toto tvrdenie numerickou simuláciou jednoduchého
+modelu veľkej metapopulácie, ktorá sa členila na množstvo
+menších populácii. Monitorovali chovanie sa metapopulácie v~priebehu množstva
+generácii, kde každá generácia pozostávala z~troch fáz: prirodzený výber,
+migrácia a mutácia. Samotný prirodzený výber zachovával počet členov celej
+metapopulácie, no zvýhodňoval altruistické populácie pred sebeckými. Počet
+potomkov narodených do populácie bol úmerný počtu členov populácie a podielu
+altruistov v~nej. V~momente, kedy niektorá populácia klesla v~počte členov pod
+dvoch, automaticky ju pohltila najväčšia existujúca populácia.
+
+V~rámci samotných populácii sa však potomok narodil s~väčšou pravdepodobnosťou
+sebeckému jedincovi než altruistovi. Veľkosť zvýhodnenia sebcov v~rámci skupiny
+a veľkosť zvýhodnenia altruistických skupín pred ostatnými skupinami bola
+popísaná parametrami $(\alpha, \beta)$ a v~práci bolo skúmané, pre akú najmenšiu
+hodnotu parametra $\alpha$ je aspoň polovičná pravdepodobnosť nájsť po $N$
+generáciách v~metapopulácii aspoň nejaké malé množstvo $\eps$ altruistických
+jedincov.
+
+V~tomto prípade sa jednalo o~binárny problém závislý od parametra $\alpha$,
+funkcia pravdepodobnosti $f(\alpha)$ nebola známa a jej jednotlivé merania boli
+časovo veľmi náročné. Nameranie pár stoviek hodnôt zabralo týždeň počítania
+tridsaťjadrového clustera.
+
+Podobné problémy, pri ktorých treba riešiť binárne SRFP, sa objavujú v~rôznych
+oblastiach vedeckej činnosti a je preto oprávnené zaoberať sa výkonnosťou SRFP
+algoritmov pri ich riešení. 
+
+\subsection{Definícia binárneho SRFP}
+V~ďalšom budeme za binárne SRFP považovať SRFP pri ktorom $F$ môže nadobúdať len
+hodnoty $\pm 1$. Od skúmaných funkcií $f$ preto budeme prirodzene považovať
+splnenie podmienky $\abs{f(x)} < 1$ pre všetky $x$. Takto definované binárne
+SRFP nestráca na všeobecnosti, pretože ako čitateľ ľahko nahliadne,
+transformáciou $aF + b$ možno tento problém previesť na ľubovoľné binárne SRFP.

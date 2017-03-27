@@ -1,0 +1,39 @@
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Priebeh line\IeC {\'a}rnej funkcie}}{30}
+\contentsline {figure}{\numberline {A.2}{\ignorespaces Priebeh kubickej funkcie}}{31}
+\contentsline {figure}{\numberline {A.3}{\ignorespaces Priebeh sigmoidy}}{31}
+\contentsline {figure}{\numberline {A.4}{\ignorespaces Priebeh Cauchyho funkcie}}{32}
+\contentsline {figure}{\numberline {A.5}{\ignorespaces Priebeh Erf}}{32}
+\contentsline {figure}{\numberline {A.6}{\ignorespaces Priebeh Sgn}}{33}
+\contentsline {figure}{\numberline {B.1}{\ignorespaces \IeC {\v S}\IeC {\'\i }rka intervalu spo\IeC {\v l}ahlivosti pre r\IeC {\^o}zne hodnoty $\gamma $ pre line\IeC {\'a}rnu funkciu}}{34}
+\contentsline {figure}{\numberline {B.2}{\ignorespaces \IeC {\v S}\IeC {\'\i }rka intervalu spo\IeC {\v l}ahlivosti pre r\IeC {\^o}zne hodnoty $\gamma $ pre funkciu $\qopname \relax o{sgn}$}}{35}
+\contentsline {figure}{\numberline {B.3}{\ignorespaces \IeC {\v S}\IeC {\'\i }rka intervalu spo\IeC {\v l}ahlivosti pre r\IeC {\^o}zne hodnoty $c$ pre line\IeC {\'a}rnu funkciu.}}{35}
+\contentsline {figure}{\numberline {B.4}{\ignorespaces \IeC {\v S}\IeC {\'\i }rka intervalu spo\IeC {\v l}ahlivosti pre r\IeC {\^o}zne hodnoty $c$ pre funkciu $\qopname \relax o{sgn}$.}}{36}
+\contentsline {figure}{\numberline {B.5}{\ignorespaces Distrib\IeC {\'u}cia predpoved\IeC {\'\i } Robbins-Monro algoritmu na intervale \IeC {\v s}\IeC {\'\i }rky 1024}}{37}
+\contentsline {figure}{\numberline {B.6}{\ignorespaces Distrib\IeC {\'u}cia predpoved\IeC {\'\i } Robbins-Monro algoritmu na intervale \IeC {\v s}\IeC {\'\i }rky 16}}{37}
+\contentsline {figure}{\numberline {B.7}{\ignorespaces Distrib\IeC {\'u}cia predpoved\IeC {\'\i } Robbins-Monro algoritmu na intervale \IeC {\v s}\IeC {\'\i }rky 1/16}}{38}
+\contentsline {figure}{\numberline {B.8}{\ignorespaces Distrib\IeC {\'u}cia predpoved\IeC {\'\i } Newtonovho algoritmu na intervale \IeC {\v s}\IeC {\'\i }rky 1024}}{39}
+\contentsline {figure}{\numberline {B.9}{\ignorespaces Distrib\IeC {\'u}cia predpoved\IeC {\'\i } Newtonovho algoritmu na intervale \IeC {\v s}\IeC {\'\i }rky 16}}{39}
+\contentsline {figure}{\numberline {B.10}{\ignorespaces Distrib\IeC {\'u}cia predpoved\IeC {\'\i } Newtonovho algoritmu na intervale \IeC {\v s}\IeC {\'\i }rky 1/16}}{40}
+\contentsline {figure}{\numberline {B.11}{\ignorespaces Distrib\IeC {\'u}cia predpoved\IeC {\'\i } regula falsi na intervale \IeC {\v s}\IeC {\'\i }rky 1024}}{40}
+\contentsline {figure}{\numberline {B.12}{\ignorespaces Distrib\IeC {\'u}cia predpoved\IeC {\'\i } regula falsi na intervale \IeC {\v s}\IeC {\'\i }rky 1/16}}{41}
+\contentsline {figure}{\numberline {B.13}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre line\IeC {\'a}rnu funkciu so sklonom 0,01}}{42}
+\contentsline {figure}{\numberline {B.14}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre line\IeC {\'a}rnu funkciu so sklonom 0,1}}{42}
+\contentsline {figure}{\numberline {B.15}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre line\IeC {\'a}rnu funkciu so sklonom 0,5}}{43}
+\contentsline {figure}{\numberline {B.16}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre line\IeC {\'a}rnu funkciu so sklonom 1,0}}{43}
+\contentsline {figure}{\numberline {B.17}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre line\IeC {\'a}rnu funkciu so sklonom 2,0}}{44}
+\contentsline {figure}{\numberline {B.18}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre line\IeC {\'a}rnu funkciu so sklonom 5,0}}{44}
+\contentsline {figure}{\numberline {B.19}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre line\IeC {\'a}rnu funkciu so sklonom 10,0}}{45}
+\contentsline {figure}{\numberline {B.20}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre line\IeC {\'a}rnu funkciu so sklonom 100,0}}{45}
+\contentsline {figure}{\numberline {B.21}{\ignorespaces Porovnanie origin\IeC {\'a}lnej Newtonovej met\IeC {\'o}dy s\nobreakspace {}met\IeC {\'o}du zlep\IeC {\v s}enou za pomoci heurist\IeC {\'\i }k a s\nobreakspace {}algoritmom Robbinsa-Monroa. Do grafu s\IeC {\'u} vynesen\IeC {\'e} \IeC {\v s}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre line\IeC {\'a}rnu funkciu so sklonom $1.0$}}{46}
+\contentsline {figure}{\numberline {B.22}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre $0.01\qopname \relax o{sgn}$}}{47}
+\contentsline {figure}{\numberline {B.23}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre $0.1\qopname \relax o{sgn}$}}{47}
+\contentsline {figure}{\numberline {B.24}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre $0.2\qopname \relax o{sgn}$}}{48}
+\contentsline {figure}{\numberline {B.25}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre $0.4\qopname \relax o{sgn}$}}{48}
+\contentsline {figure}{\numberline {B.26}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre $0.6\qopname \relax o{sgn}$}}{49}
+\contentsline {figure}{\numberline {B.27}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre $0.8\qopname \relax o{sgn}$}}{49}
+\contentsline {figure}{\numberline {B.28}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre $1.0\qopname \relax o{sgn}$}}{50}
+\contentsline {figure}{\numberline {B.29}{\ignorespaces Porovnanie origin\IeC {\'a}lnej Newtonovej met\IeC {\'o}dy s\nobreakspace {}met\IeC {\'o}du zlep\IeC {\v s}enou za pomoci heurist\IeC {\'\i }k a s\nobreakspace {}algoritmom Robbinsa-Monroa. Do grafu s\IeC {\'u} vynesen\IeC {\'e} \IeC {\v s}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre $1.0\qopname \relax o{sgn}$}}{51}
+\contentsline {figure}{\numberline {B.30}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre kubick\IeC {\'u} funkciu}}{52}
+\contentsline {figure}{\numberline {B.31}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre sigmoidu}}{52}
+\contentsline {figure}{\numberline {B.32}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre erf}}{53}
+\contentsline {figure}{\numberline {B.33}{\ignorespaces \IeC {\v S}\IeC {\'\i }rky intervalov spo\IeC {\v l}ahlivosti pre Cauchyho funkciu}}{53}

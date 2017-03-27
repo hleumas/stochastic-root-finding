@@ -1,0 +1,26 @@
+#!/usr/bin/gnuplot
+load 'include'
+
+set output 'newton_linear.eps'
+set xlabel "{/Symbol g}"
+set ylabel "95% spol."
+set title 'Newton linearny'
+plot 'newton_linear' usi 1:2:(0.05) w boxes fs solid 0.5
+
+set output 'newton_sgn.eps'
+set xlabel "{/Symbol g}"
+set ylabel "95% spol."
+set title 'Newton sgn'
+plot 'newton_sgn' usi 1:2:(0.05) w boxes fs solid 0.5
+
+set output 'regula_linear.eps'
+set xlabel "c"
+set ylabel "95% spol."
+set title 'regula falsi linearny'
+plot 'regula_linear' usi 1:2:(0.2) w boxes fs solid 0.5
+
+set output 'regula_sgn.eps'
+set xlabel "c"
+set ylabel "95% spol."
+set title 'regula falsi sgn'
+plot 'regula_sgn' usi 1:2:(0.2) w boxes fs solid 0.5

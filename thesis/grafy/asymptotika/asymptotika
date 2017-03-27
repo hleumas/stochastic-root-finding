@@ -1,0 +1,77 @@
+#!/usr/bin/gnuplot
+load 'include'
+
+set log xy
+set xrange [1:2000]
+
+set output 'linearTest0.01.eps'
+set xlabel "pocet krokov"
+set ylabel "95% spol."
+set title 'Linearna sklon 0.01'
+plot 'LinearTest0.01.dat' usi 1:2 w points pt 3 ps 1.5 title 'Robbins-Monro',\
+     'LinearTest0.01.dat' usi 1:3 w points pt 4 ps 1.5 title 'Newton',\
+     'LinearTest0.01.dat' usi 1:4 w points pt 6 ps 1.5 title 'regula falsi'
+
+set output 'linearTest0.1.eps'
+set xlabel "pocet krokov"
+set ylabel "95% spol."
+set title 'Linearna sklon 0.1'
+plot 'LinearTest0.1.dat' usi 1:2 w points pt 3 ps 1.5 title 'Robbins-Monro',\
+     'LinearTest0.1.dat' usi 1:3 w points pt 4 ps 1.5 title 'Newton',\
+     'LinearTest0.1.dat' usi 1:4 w points pt 6 ps 1.5 title 'regula falsi'
+
+set output 'linearTest0.5.eps'
+set xlabel "pocet krokov"
+set ylabel "95% spol."
+set title 'Linearna sklon 0.5'
+plot 'LinearTest0.5.dat' usi 1:2 w points pt 3 ps 1.5 title 'Robbins-Monro',\
+     'LinearTest0.5.dat' usi 1:3 w points pt 4 ps 1.5 title 'Newton',\
+     'LinearTest0.5.dat' usi 1:4 w points pt 6 ps 1.5 title 'regula falsi'
+
+set output 'linearTest1.0.eps'
+set xlabel "pocet krokov"
+set ylabel "95% spol."
+set title 'Linearna sklon 1.0'
+plot 'LinearTest1.0.dat' usi 1:2 w points pt 3 ps 1.5 title 'Robbins-Monro',\
+     'LinearTest1.0.dat' usi 1:3 w points pt 4 ps 1.5 title 'Newton',\
+     'LinearTest1.0.dat' usi 1:4 w points pt 6 ps 1.5 title 'regula falsi'
+
+set output 'linearTest2.0.eps'
+set xlabel "pocet krokov"
+set ylabel "95% spol."
+set title 'Linearna sklon 2.0'
+plot 'LinearTest2.0.dat' usi 1:2 w points pt 3 ps 1.5 title 'Robbins-Monro',\
+     'LinearTest2.0.dat' usi 1:3 w points pt 4 ps 1.5 title 'Newton',\
+     'LinearTest2.0.dat' usi 1:4 w points pt 6 ps 1.5 title 'regula falsi'
+
+set output 'linearTest5.0.eps'
+set xlabel "pocet krokov"
+set ylabel "95% spol."
+set title 'Linearna sklon 5.0'
+plot 'LinearTest5.0.dat' usi 1:2 w points pt 3 ps 1.5 title 'Robbins-Monro',\
+     'LinearTest5.0.dat' usi 1:3 w points pt 4 ps 1.5 title 'Newton',\
+     'LinearTest5.0.dat' usi 1:4 w points pt 6 ps 1.5 title 'regula falsi'
+
+set output 'linearTest10.0.eps'
+set xlabel "pocet krokov"
+set ylabel "95% spol."
+set title 'Linearna sklon 10.0'
+plot 'LinearTest10.0.dat' usi 1:2 w points pt 3 ps 1.5 title 'Robbins-Monro',\
+     'LinearTest10.0.dat' usi 1:3 w points pt 4 ps 1.5 title 'Newton',\
+     'LinearTest10.0.dat' usi 1:4 w points pt 6 ps 1.5 title 'regula falsi'
+
+set output 'linearTest100.0.eps'
+set xlabel "pocet krokov"
+set ylabel "95% spol."
+set title 'Linearna sklon 100.0'
+plot 'LinearTest100.0.dat' usi 1:2 w points pt 3 ps 1.5 title 'Robbins-Monro',\
+     'LinearTest100.0.dat' usi 1:3 w points pt 4 ps 1.5 title 'Newton',\
+     'LinearTest100.0.dat' usi 1:4 w points pt 6 ps 1.5 title 'regula falsi'
+
+set output 'newtonLinearTest1.0.eps'
+set xlabel "pocet krokov"
+set ylabel "95% spol."
+set title 'Linearna sklon 1.0'
+plot 'NewtonLinearTest1.0.dat' usi 1:2 w points pt 3 ps 1.5 title 'Robbins-Monro',\
+     'NewtonLinearTest1.0.dat' usi 1:3 w points pt 4 ps 1.5 title 'originalny Newton',\
+     'NewtonLinearTest1.0.dat' usi 1:4 w points pt 6 ps 1.5 title 'vylepseny Newton'

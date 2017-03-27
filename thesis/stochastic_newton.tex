@@ -1,0 +1,22 @@
+V~roku 1958 Sacks skúmal\cite{sacks} asymptotické správanie Robbins-Monro
+algoritmu s~postupnosťou $a_n=k/n$. Sacksovi sa podarilo ukázať, že za splnenia
+istých bežných podmienok konverguje postupnosť $n^{1/2}(x_n-\x)$ k~náhodnej
+premennej s~nulovou strednou hodnotou a disperziou $k^2\sigma^2/(2A\alpha-1)$,
+kde $\alpha>0$ je derivácia funkcie $f$ v~bode $\x$ a
+\[\sigma^2 = \lim_{x\to\x} \Var F(x)\,\.\]
+Je ľahké overiť, že optimálna hodnota $k$ je z~hľadiska rýchlosti konvergencie
+$\alpha^{-1}$. Problémom však je, že v~praxi môžeme bez predošlej znalosti
+funkcie $f$ hodnotu $\alpha$ len tipovať. To inšpirovalo v~roku 1977 Dana Anbara
+k~navrhnutiu metódy\cite{anbar}, ktorá by odhadovala $\alpha$ počas iterovania
+Robbins-Monro algoritmu. V~ním navrhovanom algoritme sa $\alpha$ odhaduje
+lineárnym fitom metódou najmenších štvorcov nameraných hodnôt $F(x_n)$. Keďže
+však prvé hodnoty sú spravidla ďaleko od stredu bodu $\x$, kde nás derivácia
+zaujíma, s~pribúdajúcim množstvom hodnôt $F$ sa oplatí prvé merania do výpočtu
+$\alpha$ nezahrnúť.
+
+Takto upravený Robbins-Monro algoritmus teda iteruje rekurentným vzťahom
+\[x_{n+1} = x_{n} + \frac{F(x_n)}{n\alpha_{m(n),n}}\,,\label{stonewton}\]
+kde $\alpha_{m(n),n}$ označuje odhad derivácie berúci do úvahy body $x_{m(n)}$,
+$x_{m(n)+1}$, \dots, $x_{n}$. Autor v~článku\cite{anbar} dokázal, že takto
+zvolená postupnosť konverguje pre $m(n) = o(\log(n)^{1/(2+\epsilon)})$ pre
+všetky $\epsilon>0$.

@@ -1,0 +1,17 @@
+#!/usr/bin/gnuplot
+
+set term postscript eps enhanced 26 
+set size 1,1
+unset key
+set samples 200,200
+
+linew=2
+set style line 1 lw linew
+
+set style increment user
+
+set xrange [-5:5]
+set yrange[-1.1:1.1]
+
+sigmoid(x) = 2 * (1 + exp(-x))**(-1) - 1
+cauchy(x)  = 2/pi * atan(x)

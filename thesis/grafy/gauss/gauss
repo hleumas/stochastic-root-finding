@@ -1,0 +1,43 @@
+#!/usr/bin/gnuplot
+load 'include'
+
+set output 'bisection_big.eps'
+set xlabel "95% spol."
+set ylabel "Hustota pravdepodobnosti"
+set title 'Monro-Robbins 1024'
+plot 'bisection_sigmoid_big.dat' usi 1:2 w points pt 7 ps 0.5, gauss(x, 6.82598266918) w li lt 1
+
+set output 'bisection_med.eps'
+set title 'Monro-Robbins 16'
+plot 'bisection_sigmoid_med.dat' usi 1:2 w points pt 7 ps 0.5, gauss(x, 0.366175734905) w li lt 1
+
+set output 'bisection_small.eps'
+set title 'Monro-Robbins 1/16'
+plot 'bisection_sigmoid_small.dat' usi 1:2 w points pt 7 ps 0.5, gauss(x, 0.0205035540877) w li lt 1
+
+set output 'heuristic_big.eps'
+set title 'Newton 1024'
+plot 'heuristic_sigmoid_big.dat' usi 1:2 w points pt 7 ps 0.5, gauss(x, 0.353049868808) w li lt 1
+
+set output 'heuristic_med.eps'
+set title 'Newton 16'
+plot 'heuristic_sigmoid_med.dat' usi 1:2 w points pt 7 ps 0.5, gauss(x,0.266665861807) w li lt 1
+
+set output 'heuristic_small.eps'
+set title 'Newton 1/16'
+plot 'heuristic_sigmoid_small.dat' usi 1:2 w points pt 7 ps 0.5, gauss(x,0.0220270887756) w li lt 1
+
+set output 'secant_big.eps'
+set title 'regula falsi 1024'
+plot 'secant_sigmoid_big.dat' usi 1:2 w points pt 7 ps 0.5, gauss(x,0.261479558406) w li lt 1
+
+#set output 'secant_med.eps'
+#set title 'regula falsi 16'
+#plot 'secant_sigmoid_med.dat' usi 1:2 w points pt 7 ps 0.5, gauss(x,0.266665861807) w li lt 1
+
+set output 'secant_small.eps'
+set title 'regula falsi 1/16'
+plot 'secant_sigmoid_small.dat' usi 1:2 w points pt 7 ps 0.5, gauss(x,0.018030768447) w li lt 1
+
+#plot [-3:3] gauss(x,3)
+

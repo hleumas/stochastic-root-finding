@@ -1,0 +1,191 @@
+\section{Metodika testovania}
+\subsection{Dodatočné predpoklady pri implementácii algoritmov}
+
+V~praxi je nemožné efektívne hľadať koreň bez akýchkoľvek ďalších informácií
+v~celom $\R$. Algoritmy síce konvergujú k~riešeniu, avšak na nekonečne dlhom
+intervale intervale im to môže trvať veľmi veľmi dlho. Preto je potrebné
+odhadnúť nejaký konečný interval $[a, b]$, na ktorom sa koreň bude nachádzať.
+Nejaké obmedzenia sú v~skutočnosti dané už samotnou povahou experimentu,
+napríklad je jasné, že nemožno nadopovať pacienta dávkou lieku hmotnosti
+prevyšujúcej hmotnosť pacienta -- nezmestí sa. Akékoľvek ďalšie informácie môžu
+algoritmy pri binárnom experimente potešiť, ale nie sú nutnosťou. Preto, aby
+bola súťaž férová, stanovili sme nasledovné jednotné rozhranie pre všetky
+testované algoritmy
+
+\begin{itemize}
+\item funkciu merania $F$ (vracia hodnoty $\pm1$);
+\item konečný interval $[a,b]$ v~ktorom je zaručené nájsť koreň.
+\end{itemize}
+
+Bolo by nerozumné, keby niektorý z~algoritmov skúšal testovať aj body mimo
+zadaného intervalu $[a,b]$. Okrem toho, že to určite nepomôže k~výsledku, hrozí,
+že funkcia merania $F$ nebude mimo tohto intervalu definovaná. Preto sú všetky
+testované algoritmy upravené tak, aby v~prípade snahy opustiť interval skončili
+v~jeho príslušnom krajnom bode.
+
+Niekoľko krátkych poznámok k~implementácii jednotlivých algoritmov:
+\begin{itemize}
+\item Robbins-Monro algoritmus začína v~$x_0 = \tfrac{1}{2}(a+b)$ a konštantu
+$k$ zvolí ako $k=b-a$. Je to najrozumnejší odhad prevrátenej hodnoty derivácie
+$f$, aký sa zo zadaných informácii dá spraviť.
+
+\item Stochastická Newtonova metóda bude tiež začínať v~strede intervalu a
+odhad sklonu si už dopočítava sama z~výsledkov meraní v~jednotlivých bodoch. Na
+začiatku vychádza z~predpokladu, že v~bodoch $a$, $b$ sa postupne namerali
+hodnoty $-1$ a $1$. Nie je úplne jasné, ako zvoliť zahadzovaciu funkciu $m(n)$,
+budeme preto testovať túto metódu pre rôzne varianty.
+
+\item Ako neskôr ukážeme, originálna Stochastická Newtonova metóda sa v~praxi
+chová veľmi neefektívne. Pokúsili sme sa niektoré zdroje tejto neefektivity
+odstrániť implementovaním niekoľkých heuristík. Bližšiu diskusiu o~týchto
+heuristikách a zdroji neefektivít v~Newtonovej metóde nájdete v~tejto kapitole.
+
+\item Stochastická metóda regula falsi bude vychádzať z~predpokladu, že
+v~krajných bodoch boli s~nekonečnou presnosťou namerané hodnoty $\pm 1$. Vhodnú
+voľbu funkcie $s(k)$, určujúcej počet meraní v~$k$-tej iterácii, preskúmame
+neskôr.
+\end{itemize}
+
+
+\subsection{Testované parametre}
+
+Hlavným parametrom, od ktorého sa naše merania efektivity odvíjajú, je šírka
+$95\unit{\%}$ intervalu spoľahlivosti za zadaných podmienok. Všetky merania, ak
+nie je povedané inak, sa zopakovali $1\,000$ krát. Aby algoritmy
+nemohli profitovať z~uhádnutia správneho výsledku tipom na stred
+intervalu a aby merania mali väčšiu validitu pri reálnych podmienkach, pri
+meraní so zadanou šírkou intervalu sme pri jednotlivých meraniach volili hranice
+intervalov $[a,b]$ tak, koreň prešiel postupne rovnomerne cez vnútorných $80\%$
+intervalu.
+
+Algoritmy sme porovnávali v~nasledujúcich oblastiach:
+\begin{itemize}
+\item Tvar distribučnej funkcie výsledkov predpovedaných algoritmami
+\item Schopnosť vyrovnať sa s~dlhými monotónnymi úsekmi (napr. $\sgn$)
+\item Asymptotická rýchlosť konvergencie
+\item Testy na niekoľkých náhodne zvolených funkciách
+\end{itemize}
+
+\subsection{Stochastický Newtonov algoritmus}
+Stochastický Newtonov algoritmus vo svojej originálnej podobe z~práce Dan
+Anbara\cite{anbar} je pre účely binárneho experimentu prakticky nepoužiteľný.
+Ako možno vidieť na \ref{sgn:newton}, prítomnosť dlhých monotónnych intervalov
+ho úplne vyvedie z~miery. Na lineárných úsekoch \ref{lin:newton} sa už chová
+podstatne lepšie, avšak stále prudko zaostáva za pôvodným Robbins-Monro
+algoritmom, ktorý sa snažil vylepšiť. 
+
+Analýzou správania sa tohto algoritmu sme odhalili jeden z~častých zdrojov jeho
+neefektivity. Algoritmus občas spravil extrémne malý odhad sklonu skúmanej
+funkcie $f$ a to malo za následok prudký skok preč z~práve analyzovaného miesta
+zväčša na niektorú z~hraníc intervalu $[a,b]$. Tým pádom algoritmus stratil
+všetku prácne spočítanú informáciu a začínal odznova.
+
+Aby sme tento efekt eliminovali, pridali sme do algoritmu podmienku, ktorá
+testovala, či sa algoritmus nesnaží pohnúť o~väčšiu vzdialenosť, než je
+priemerná dĺžka jeho kroku od začiatku vykonávania. V~prípade, že áno, tak sa tá
+iterácia nahradila pohybom podľa Robbins-Monro metódy.
+
+To viedlo k~podstatnému zlepšeniu algoritmu v~prípade dlhých monotónnych úsekov
+(\ref{sgn:newton}), nezanedbateľné zlepšenie nastalo i pri lineárnych úsekoch
+(\ref{lin:newton}), avšak nie také prudké ako pri prvej z~možností. Pri
+lineárnych úsekoch sa algoritmu síce stále nepodarilo prekonať Robbins-Monro
+algoritmus, avšak pri dlhých monotónnych úsekoch sa ukázala jeho opodstatnenosť.
+
+V~ďalších porovnaniach z~dôvodov prudkej nepoužiteľnosti originálneho algoritmu
+budeme pracovať vždy s~verziou doplnenou o~heuristiky.
+
+\subsection{Voľba zahadzovacej funkcie pre Newtonov algoritmus}
+Vo svojom článku\cite{anbar} Dan Anbar používal $m(n) =
+o(\log(n)^{1/(2+\epsilon)})$. To je pre praktické účely takmer konštanta,
+napríklad $\log(1000)^{1/2}<3$. Je preto namieste otázka, či v~praxi nemožno
+dosiahnuť lepšie výsledky s~pomocou inak zvolenej funkcie $m(n)$. Zamerali sme
+sa na hľadanie zahadzovacej funkcie v~tvare $m(n) = n^\gamma$ a
+preskúmali sme správanie sa pre rôzne $\gamma$ z~intervalu $[0, 1]$. Výsledky
+pre lineárne a monotónne úseky sú vynesené do grafov \ref{parameter:newtonLin} a
+\ref{parameter:newtonSgn}. Z~pochopiteľných dôvodov je pri lineárnych úsekoch
+najvýhodnejšie nezahadzovať vôbec, zaujímavé však je, že rozdiel medzi takmer
+úplným zahadzovaním a nezahadzovaním nie je priepastný. Na druhej strane, pri
+funkcii signum si až o~niekoľko rádov lepšie viedli algoritmy, ktoré zahadzovali
+viac. Hodnota $\gamma$ musí byť opäť nejakým kompromisom medzi týmito dvoma
+extrémnymi prípadmi. Keďže však vplyv v~druhom prípade bol síce veľmi výrazný,
+ale očakáva sa, že funkcia bude v~prvom móde bežať väčšinu svojho času. Je preto
+rozumné sa viac prikloniť niekam do stredu. Preto vo svojich ďalších meraniach
+budeme používať hodnotu $\gamma=0.4$
+
+\subsection{Voľba funkcie $s$ pre metódu regula falsi}
+Ako sme už v~predošlej kapitole odôvodnili, je rozumné tipovať funkciu $s$
+v~tvare $s(k)=c^k$. Odskúšali sme rôzne hodnoty $c$ z~intervalu $[1.1, 5]$.
+Výsledky pre lineárne a monotónne úseky sú vynesené do grafov
+\ref{parameter:regulaLin} a \ref{parameter:regulaSgn}.Pri monotónnych
+úsekoch je očakávateľné, že najvýhodnejšia funkcia $s$ bude čo najpomalšie
+rastúca. Pri lineárnych úsekoch, sa v~súlade s~teóriou z~predošlej kapitoly,
+ukazujú ako najvýhodnejšie hodnoty s~$c>4$, avšak rozdiely nie sú podstatne
+veľké. Veľká hodnota $c$ však znamená obrovský nárast počtu meraní v~monotónnych
+úsekoch. Keďže medzi týmito dvoma extrémami treba
+zvoliť nejaký kompromis, v~ďalších meraniach budeme používať hodnotu $c=1.3$.
+
+\subsection{Distribúcia výsledkov predpovedaných algoritmami}
+Tvar distribučnej funkcie výsledkov jednotlivých algoritmov je ich zaujímavou
+vlastnosťou. Zo znalosti jediného čísla, štandardnej odchýlky, je možné získať
+všetky podstatné informácie, napríklad šírku intervalov spoľahlivosti pre
+ľubovoľný percentil.
+
+Ak je algoritmus dobrý, jeho výsledok by nemal silno závisieť od malého počtu
+meraní. Jedno pokazené meranie by vtedy znamenalo silný posun vo výsledku a bolo
+by určite rozumnejšie takúto kritickú časť premerať viackrát. Možno teda
+očakávať, že hodnota výsledku bude faktor podstatne závislý od mnohých náhodných
+premenných. V~takých prípadoch čakáme, že distribučná funkcia bude podobná
+Gaussovej funkcii normálneho rozdelenia. Aby sme toto preverili, zostrojili sme
+pre jednotlivé algoritmy graf rozdelenia výsledkov po 100 krokoch pri meraní
+sigmoidy na rôznych intervaloch. Napriek tomu, že niektoré grafy
+(\ref{gauss:secantBig})
+vyzerajú pomerne gaussovsky, gaussovka, vytvorená len na základe informácie
+o~štandardnej odchýlke ich vôbec nefituje. Po odstránení približne $5\unit{\%}$
+krajných hodnôt sa štandardná odchýlka prudko zmení a z~nej vytvorené gaussovka
+už hodnoty pekne fituje. Z~toho môžeme vyvodiť nasledovný záver: $95\unit{\%}$
+hodnôt možno pomerne dobre považovať za gaussovsky distribuované, avšak
+štandardnú odchýlku treba rátať bez $5\unit{\%}$ najodchýlenejších hodnôt.
+
+Je zaujímavé všimnúť si, že pre malé dĺžky intervalov sú výsledky všetkých
+algoritmov gaussovské, no pre najväčšiu dĺžku má Robbins-Monro algoritmus
+podstatne iný tvar.
+
+\subsection{Asymptotické správanie sa algoritmov}
+Pri skúmaní asymptotického správania vychádzame z~predpokladu, že po veľkom počte
+krokov sa všetky algoritmy dostanú do oblasti, ktorú možno linearizovať. Preto
+sme asymptotické chovanie skúmali na lineárnych funkciách. Správanie sa
+algoritmov sa nezmení, v~prípade, že všetky zadané dĺžky vynásobíme rovnakým
+faktorom. Algoritmy totiž nijako nevychádzajú z~absolútnej dĺžky, ale z~dĺžok
+relatívnych k~šírke zadaného intervalu. Preto má zmysel obmedziť sa pri
+lineárnych funkciách len na jednu pevnú šírku intervalu a meniť iba sklon.
+intervalov a s~rôznymi sklonmi. Z~grafov možno vidieť, že až po pomerne veľké
+sklony (\ref{asymptota5}) je Robbins-Monro algoritmus najefektívnejší. Pri
+väčších sklonoch sa už samozrejme začínajú prejavovať výhody ďalších dvoch
+algoritmov, ale vtedy je už skúmaná funkcia na väčšine intervalu monotónna,
+keďže nesmie nikde presiahnuť hodnoty $\pm 1$.
+
+\subsection{Schopnosť vysporiadať sa s~monotónnymi oblasťami}
+Často sa stane, že experimentátor na začiatku určí o~niekoľko rádov väčší
+interval, ako interval, na ktorom skutočne dochádza k~nejakej zmene funkcie. Je
+preto dobré, keď sa vedia algoritmy rýchlo a efektívne vysporiadať s~dlhými
+oblasťami samých 1 a -1. Túto schopnosť sme testovali na dokonalom prototype
+takej funkcie, funkcii $\sgn$. Vo výsledkoch (\ref{sgn:max}) sa prejavila silná
+stránka Newtonovej a regula falsi metód, keď za nimi Robbins-Monro o~niekoľko
+rádov zaostával.
+
+Rovnako zaujímavé, i keď trochu menej časté prípady, sú keď funkcia je síce dlho
+monotónna, avšak jedná sa o~oblasti iných ako extrémnych hodnôt. Vtedy je
+situácia komplikovanejšia, lebo algoritmy môžu pri malom počte meraní dostať
+mylnú predstavu o~hodnotách funkcie. Vyskúšali sme preto efektivitu algoritmov
+aj na niekoľkých funkciách tvaru $\lambda\sgn$, pre parameter $\lambda\in(0,1]$.
+Ako sa postupne hodnota parametra zmenšovala, postupne rástol počet meraní
+potrebných na to, aby sa prejavila výhodnosť zvyšných dvoch metód oproti
+Robbins-Monro algoritmu (\ref{sgn:04}). Vo všetkých meraniach sa viedlo metóde
+regula falsi lepšie ako Newtonovej, rozdiely však neboli drastické, väčšinou
+dosahovali faktor 2, nikdy nepresiahli faktor 10.
+
+\subsection{Testy na ďalších funkciách}
+Na záver sme podrobili algoritmy testu na viacerých rôznych funkciách
+(\ref{all:cubic}, \ref{all:sigmoid}, \ref{all:erf}, \ref{all:cauchy}). Ako je
+z~meraných dát vidno, presnosti určenia koreňa boli veľmi podobné pre všetky tri
+algoritmy.

@@ -1,0 +1,37 @@
+#!/usr/bin/gnuplot
+load 'include'
+
+set log xy
+set xrange [1:2000]
+
+set output 'cubic.eps'
+set xlabel "pocet krokov"
+set ylabel "95% spol."
+set title 'Kubicka'
+plot 'cubic' usi 1:2 w points pt 3 ps 1.5 title 'Robbins-Monro',\
+     'cubic' usi 1:4 w points pt 4 ps 1.5 title 'Newton',\
+     'cubic' usi 1:5 w points pt 6 ps 1.5 title 'regula falsi'
+
+set output 'sigmoid.eps'
+set xlabel "pocet krokov"
+set ylabel "95% spol."
+set title 'Sigmoida'
+plot 'sigmoid' usi 1:2 w points pt 3 ps 1.5 title 'Robbins-Monro',\
+     'sigmoid' usi 1:4 w points pt 4 ps 1.5 title 'Newton',\
+     'sigmoid' usi 1:5 w points pt 6 ps 1.5 title 'regula falsi'
+
+set output 'erf.eps'
+set xlabel "pocet krokov"
+set ylabel "95% spol."
+set title 'Erf'
+plot 'erf' usi 1:2 w points pt 3 ps 1.5 title 'Robbins-Monro',\
+     'erf' usi 1:4 w points pt 4 ps 1.5 title 'Newton',\
+     'erf' usi 1:5 w points pt 6 ps 1.5 title 'regula falsi'
+
+set output 'cauchy.eps'
+set xlabel "pocet krokov"
+set ylabel "95% spol."
+set title 'Cauchyho'
+plot 'cauchy' usi 1:2 w points pt 3 ps 1.5 title 'Robbins-Monro',\
+     'cauchy' usi 1:4 w points pt 4 ps 1.5 title 'Newton',\
+     'cauchy' usi 1:5 w points pt 6 ps 1.5 title 'regula falsi'

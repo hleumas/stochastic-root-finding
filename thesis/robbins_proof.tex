@@ -1,0 +1,168 @@
+%Lema 1{{{
+\begin{lema}
+Nech $f$ je neklesajúca náhodná premenná ohraničená konštantou
+$C>0$, teda
+\[F^2(x) < C^2 \label{rob:ohranicenie}\,\.\]
+Potom strednú kvadratickú chybu $n$-tého kroku
+\[b_n = \av{(x_n-\x)^2}\]
+možno vyjadriť v~tvare
+\[b_{n} = b_0 + \sum_{i=0}^{n-1} a_i^2 e_i - \sum_{i=0}^{n-1} 2 a_n
+d_i\,,\label{becko}\]
+kde 
+\begin{align}
+e_n &= \av{f^2(x_n) + S^2(x_n)}\,,\\
+d_n &= \av{(x_n-\x) f(x_n)}\,\.
+\end{align}
+\end{lema}
+
+\begin{proof}
+Rekurenciu možno prepísať do tvaru\cite{pasupathy}
+\[x_{n+1} = x_{n} - a_n f(x_n) - a_n(S(x_n))\,,\label{rekurencia}\]
+kde náhodná premenná 
+\[S(x_n)=F(x_n)-f(x_n)\,\.\]
+Označme
+\[b_n=\av{(x_n-\x)^2}\]
+Potom možno $b_{n+1}$ vyjadriť pomocou $b_n$.
+\[b_{n+1} = \av{\av{(x_{n+1}-\x)^2\mid x_n}}\]
+Využitím rekurencie \eqref{rekurencia} výraz zjednodušíme na
+\[b_{n+1} = b_n - 2 a_n \av{(x_n-\x) f(x_n)} + a_n^2 \av{f^2(x_n)+S^2(x_n)}\,,\]
+kde sme využili fakt, že $\av{S(x_n)\mid x_n}=0$.
+Zopakovaním postupu $n$-krát dostaneme požadované vyjadrenie \eqref{becko}.
+\end{proof}
+%}}}
+
+%Lema 2{{{
+\begin{lema}
+Limita 
+$\lim_{n\to\oo}b_n$
+existuje a suma $\sum_{i=0}^\oo a_n d_i$
+konverguje.
+\end{lema}
+\begin{proof}
+Z~$\eqref{rob:ohranicenie}$ dostávame podmienku
+\[e_n < 2C^2\,\.\]
+Z~podmienky \eqref{stvorecsum} potom vyplýva konvergencia sumy
+\[\sum_{i=0}^\oo a_i^2 e_i\,\.\]
+Uvážením $b_n\geq0$ a využitím vzťahu \eqref{becko} dostávame nasledovný odhad
+pre sumu
+\[\sum_{i=0}^n a_n d_i \leq \frac{1}{2} \Bigl(b_0 + \sum_{i=0}^\oo a_i^2
+e_i\Bigr)\,\.\]
+Funkcia $f$ je neklesajúca a $f(\x) = 0$, členy postupnosti $d_n$ musia byť
+preto nezáporné a suma $\sum_{i=0}^\oo a_n d_i$ musí konvergovať. Z~vyjadrenia
+\eqref{becko} pre $b_n$ potom plynie existencia limity postupnosti $b_n$.
+\end{proof}
+%}}}
+
+Všimnime si, že $b_n$ a $d_n$ udávajú v~istom zmysle presnosť aproximácie $\x$
+pomocou $x_n$. To naznačuje, že veľkosť $d_n$ by mohla súvisieť s~veľkosťou
+$b_n$. Predpokladajme preto, že existuje nezáporná postupnosť $k_n$ dostatočne
+veľkých, aby
+\[\sum_{i=0}^\oo a_nk_n = \oo\,,\label{rob:kdef}\]
+ktoré však odhadujú $d_n$ pomocou $b_n$ vzťahom
+\[d_n \geq k_n b_n\,\.\label{rob:kodhad}\]
+Nasledovná lema ukazuje, že takýto odhad nám umožní dokázať konvergenciu
+$x_n\pto\x$.
+
+%Lema 3 {{{
+\begin{lema}
+Nech postupnosť $k_n$ spĺňa podmienky \eqref{rob:kdef} a \eqref{rob:kodhad}.
+Potom
+$\lim_{n\to\oo}b_n = 0$
+a
+$x_n\pto\x$.
+\end{lema}
+
+\begin{proof}
+Z~podmienky \eqref{rob:kodhad} vyplýva konvergencia sumy
+\[\sum_{n=0}^\oo a_nk_nb_n\,,\label{rob:bkonv}\]
+no podľa podmienky \eqref{rob:kdef} samotná suma
+\begin{equation*}
+\sum_{n=0}^\oo a_nk_n
+\end{equation*}
+nekonverguje. To znamená, že pre dostatočne veľké $n$, musí byť väčšina $b_n$
+dostatočne malých, aby dokázali zabezpečiť konvergenciu \eqref{rob:bkonv}.
+Formálne
+\[\A\epsilon>0,n>0\E k>n:b_k < \epsilon\,.\]
+Nula je hromadným bodom konvergentnej postupnosti $b_n$ a preto musí byť
+tiež jej limitou.
+Ukázali sme, že
+\[\lim_{n\to\oo} \av{(x_n-\x)^2} = 0\]
+čo je však postačujúca podmienka pre konvergenciu $x_n$ podľa pravdepodobnosti.
+\end{proof}
+
+%}}}
+Ostáva nám ukázať, že je možné zvoliť vyhovujúcu postupnosť $k_n$. Predtým si
+však dokážeme jedno pomocné tvrdenie.
+
+%Lema 4{{{
+\begin{lema}
+Pre ľubovoľnú kladnú postupnosť $a_n$ je podmienka \eqref{linearsum}
+ekvivalentné podmienke
+\[\sum_{n=1}^\oo \frac{a_n}{a_1+a_2+\dots+a_{n-1}}=\oo \label{rob:komsum}\]
+\end{lema}
+\begin{proof}
+Prvá z~implikácií je triviálna, ukážeme preto iba
+\eqref{linearsum}$\then$\eqref{rob:komsum}. Predpokladajme, že 
+\[\sum_{n=1}^\oo
+\frac{a_n}{a_1+a_2+\dots+a_{n-1}}=H<\oo\,,\label{rob:komsumpred}\] 
+potom existuje $m$, že
+\[\sum_{n=1}^m \frac{a_n}{a_1+a_2+\dots+a_{n-1}}>H-\frac{1}{2}\,,\] 
+avšak z~\eqref{linearsum} vieme, že existuje $k$
+\[2\sum_{n=0}^m < \sum_{n=1}^k\,\.\]
+Potom však
+\[\sum_{n=m+1}^k \frac{a_n}{a_1+a_2+\dots+a_{n-1}} >
+\frac{\sum_{n=m+1}^ka_n}{\sum_{n=0}^m a_n} > \frac{1}{2}\]
+To však znamená
+\[\sum_{n=1}^k \frac{a_n}{a_1+a_2+\dots+a_{n-1}}>H\,,\] 
+čo je spor s~predpokladom \eqref{rob:komsumpred}.
+\end{proof}
+%}}}
+
+\begin{veta}\label{Robbins}
+Nech $f$ je neklesajúca funkcia spĺňajúca v~nejakom $\delta$ okolí bodu $\x$
+nerovnosť
+\[M(x-\x)f(x) > (x-\x)^2 \label{rob:ineq}\]
+pre nejaké $M>0$.
+Nech zároveň $F$ spĺňa podmienku \eqref{rob:ohranicenie}.
+Potom postupnosť definovaná rekurenciou \eqref{rekurencia1} konverguje podľa
+pravdepodobnosti k~$\x$.
+\end{veta}
+
+\begin{proof}
+Pre $\lvert x_n - \x\rvert < \delta$ z~\eqref{rob:ineq} platí odhad
+\[\lvert x_n - \x\rvert\rvert < Mf(x_n)\]
+
+Ak je $\lvert x_n - \x \rvert > \delta$, dostávame z~triviálnej nerovnosti
+\[\lvert x_n - \x\rvert < \lvert x_0-\x\rvert + C \sum_{i=0}^{n-1} a_n\]
+odhad
+\[\lvert x_n - \x\rvert < A~f(x_n)\sum_{i=0}^{n-1}a_n\,,\]
+kde
+\[A =M/a_0 + (C + (\lvert x_0-\x\rvert)/a_0) M/\delta\,.\]
+Prvý člen zároveň zabezpečuje platnosť odhadu aj pre prípad
+$\lvert x_n - \x\rvert < \delta$.
+
+Tým sme ukázali platnosť nerovnosti
+\[(x_n-\x)^2 <  f(x_n)(x_n-\x)A\sum_{i=0}^{n-1}a_n\]
+a našli kandidáta pre $k_n$
+\[k_n = \Bigl(A\sum_{i=0}^{n-1}a_n\Bigr)^{-1}\]
+
+Stačí ukázať, že podmienka \eqref{rob:kdef} je splnená, teda
+\[\sum_{n=1}^\oo \frac{a_n}{a_0+a_1+\dots+a_{n-1}} = \oo \]
+to však na základe dokázanej lemy vyplýva z~\eqref{linearsum}.
+\end{proof}
+\begin{dosledok}
+Nech $f$ je neklesajúca funkcia, ktorá má v~bode $\x$ nenulovú
+deriváciu a nech $F$ spĺňa podmienku \eqref{rob:ohranicenie}. Potom postupnosť
+$x_n$ definovaná rekurenciou 
+\[x_{n+1} = x_{n} + F(x_{n})k/n\,,\label{rob:commonform}\]
+kde $x_0$ a $k$ sú pevne zvolené reálne čísla, konverguje podľa
+pravdepodobnosti k~$\x$.
+\end{dosledok}
+\begin{proof}
+Rekurencia z~tvrdenia je zodpovedá rekurencii \eqref{rekurencia1} s~$a_n=k/n$.
+Je jednoduché overiť, že takto definované $a_n$ vyhovuje podmienkam
+\eqref{linearsum} aj \eqref{stvorecsum}. Stačí teda overiť vlastnosti $f$, tá má
+v~bode $\x$ deriváciu $f'(\x) > 0$. Existuje teda $\delta$ okolie
+$\x$ na ktorom $f$ spĺňa \eqref{rob:ineq} s~konštantou $M=2/f'(\x)$ a môžeme
+uplatniť vetu \ref{Robbins}.
+\end{proof}

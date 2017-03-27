@@ -1,0 +1,37 @@
+\section*{Úvod}
+Numerické metódy sú vďaka rozmachu počítačovej techniky v~dvadsiatom prvom
+storočí nepostrádateľným nástrojom modernej vedy. Dôležitým reprezentantom sú
+algoritmy na hľadanie koreňov, používané dennodenne v~takmer všetkých oblastiach
+ľudského skúmania. Kým však Newtonova metóda, metóda regula falsi, či Brentova metóda,
+poskytujú efektívny spôsob hľadania nulových bodov známej funkcie $f$, pri
+skúmaní komplikovaných javov je možné určiť hodnoty $f$ len experimentálne
+s~nezanedbateľnou náhodnou chybou.
+
+Uveďme jednoduchý príklad: analýza účinkov nového chemoterapeutika pri
+liečbe rakoviny. Pri väčšom množstve látky je šanca na zahubenie rakovinových
+buniek väčšia, no rovnako pribúdajú aj nežiadúce účinky. Cieľom farmaceutov je
+určiť množstvo látky $\x$, pri ktorom je pravdepodobnosť vyliečenia sa väčšia ako
+vopred stanovená hodnota $p$. Z~podstaty experimentu nevieme merať
+funkciu pravdepodobnosti $f(x)$ v~závislosti od množstva látky $x$ priamo,
+výsledok každého merania je binárny -- úspech/neúspech. Jedna z~možností, ako
+riešiť rovnicu $f(x)=p$, je uskutočniť veľa experimentov, dostatočne presne
+určiť funkciu $f$ a následne použiť niektorú z~numerických metód. Takýto prístup
+by však stál život priveľa laboratórnych myší, s~čím ochrancovia zvierat nemusia
+súhlasiť a lobingom v~europarlamente by mohli dosiahnuť zákaz nášho výskumu.
+
+V~tejto práci ukážeme efektívnejší spôsob riešenia uvedeného problému.
+Tieto takzvané SRFP (Stochastic root finding problem) algoritmy nevyžadujú
+znalosť funkcie $f$, jej koreň hľadajú len na základe náhodných meraní $F(x)$,
+tie vo všeobecnosti nemusia byť obmedzené na dve hodnoty ako v~našom príklade,
+ak to tak však je, hovoríme o~binárnom SRFP. Bližšie si binárne SRFP predstavíme
+na konkrétnom probléme z~teoretickej biológie v~druhej časti práce.
+
+Prvú metódu na riešenie SRFP navrhli v~roku 1951 Robbins a Monro\cite{monro}.
+V~roku 1977 ju Dan Anbar\cite{anbar}  modifikoval, pričom sa nechal inšpirovať
+klasickým Newtonovým algoritmom. S~oboma metódami sa bližšie 
+zoznámime v~prvej časti bakalárskej práce. Následne v~tretej časti predstavíme
+vlastný algoritmus na riešenie binárneho SRFP a v~záverečnej štvrtej časti
+otestujeme výkonnosť všetkých troch algoritmov za rôznych podmienok.
+
+Implementácie algoritmov použité v~tejto práci sprístupňujeme pod licenciou GPL
+vo forme jednoduchého modulu pre Python.

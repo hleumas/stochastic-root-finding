@@ -1,0 +1,146 @@
+\section{Stochastická metóda regula falsi}
+\subsection{Motivácia}
+Spomedzi numerických metód hľadania koreňa patrí regula falsi k~najstarším.
+Prvé zmienky o~nej sa vyskytujú už v~treťom storočí pred našim letopočtom
+v~indickom diele Vaishali Ganit. 
+
+Regula falsi funguje podobne ako metóda polenia intervalov. Štartuje s~dvoma
+bodmi $a_0$, $b_0$ takými, že $f(a_0)$ a $f(b_0)$ sú opačných znamienok. Za
+predpokladu spojitosti analyzovanej funkcie $f$ je potom v~intervale 
+$[a_0,b_0]$ zaručená existencia koreňa. Metóda produkuje postupnosť intervalov
+$[a_k, b_k]$ aproximujúcich hodnotu koreňa. V~$k$-tom kroku sa spočíta hodnota
+
+\[c_k = {f(b_k)a_k - f(a_k)b_k\over f(b_k) - f(a_k)} \label{regula:iter}\]
+
+Možno ľahko nahliadnuť, že $c_k$ je priesečníkom $x$-ovej osi a spojnice bodov
+$(a_k, f(a_k))$ a $(b_k, f(b_k))$. V~nasledovnom kroku sa jeden z~bodov $a_k$,
+$b_k$ nahradí bodom $c_k$ a druhý sa ponechá tak, aby bolo naďalej splnené, že
+$a_{k+1}$ a $b_{k+1}$ majú opačné znamienka. Tento postup sa iteruje dokým
+nedostaneme dostatočne presnú aproximáciu koreňa.
+
+\subsection{Stochastická verzia}
+Celú metódu budeme formulovať pre rastúcu $f$ a binárny experiment s~hodnotami
+$\pm 1$. Ak by sme pustili originálnu verziu regula falsi na SRFP, algoritmus by
+síce k~nejakej hodnote konvergoval (v~každom kroku by sa interval zmenšil na
+polovicu), ale nebolo zaručené (a ani pravdepodobné), že táto hodnota by bola
+koreňom skúmanej funkcie. Aby sme si toto poistili, metódu jemne modifikujeme
+tak, aby v~každej iterácii merala hodnoty v~daných bodoch viackrát a aby tento
+počet stúpal s~každou iteráciou. Takto algoritmus získa vždy dostatočne presné
+aproximácie hodnôt funkcie a bude zaručené konvergencia ku koreňu.
+
+Nasleduje podrobný popis fungovania algoritmu:
+\begin{itemize}
+\item Rastúca funkcia $s(k)$ udáva závislosť počtu meraní od čísla iterácie
+$k$
+
+\item V~každej iterácii algoritmus disponuje poľom trojíc $(x, y, c)$, kde $x$ sú
+všetky doteraz skúmané body, $y$ sú aproximácie hodnoty $f(x)$ vytvorené z~$c$
+meraní. Toto pole trojíc je usporiadané podľa hodnôt $x$. Ďalej si udržiava
+informáciu o~práve analyzovanom bode $x_\mrm{cur}$.
+
+\item Algoritmu štartuje s~dvoma hodnotami $x_0, x_1$, pre ktoré je zaručené, že
+$f(x_0) < 0$ a $f(x_1) > 0$ a v~poli sú zaradené ako $(x_0, -1, \oo)$ a $(x_1,
+1, \oo)$. Práve analyzovaný bod $x_\mrm{cur}$ je inicializovaný na $x_0$.
+
+\item V~$k$-tej iterácii algoritmus odmeria $s(k)$-krát hodnotu v~bode
+$x_\mrm{cur}$. Na základe znamienka priemeru usúdi, či sa jedná o~bod vpravo
+alebo vľavo od hľadaného koreňa. Ďalej vezme najbližší bod $x$ vľavo resp.
+vpravo od $x_\mrm{cur}$. K~nemu príslušná hodnota $y$ má určite opačné znamienko
+ako hodnota práve spočítaná hodnota $y_\mrm{cur}$. 
+
+\item V~takto vybratom bode $x$ algoritmus odmeria hodnotu toľkokrát, aby počet
+meraní v~tomto bode bol aspoň $s(k)$. V~prípade, že sa znamienko $y$ týmito
+meraniami zmení, algoritmus nastaví novú hodnotu $x_\mrm{cur}$ na $x$ a celý
+postup zopakuje. 
+
+\item Ak hodnota $y$ ani po dodatočných meraniach nezmení znamienko, je
+zaručené, že $y$ a $y_\mrm{cur}$ majú opačné znamienka. Podľa vzťahu
+\eqref{regula:iter} vypočítame novú hodnotu $x_\mrm{cur}$ a prejdeme do $(k+1)\.$
+iterácie.
+\end{itemize}
+
+\subsection{Dôkaz konvergencie}
+Ukážeme, že popísaný algoritmus konverguje podľa pravdepodobnosti ku koreňu
+hľadanej funkcie $f$. Najskôr však uvedieme niekoľko pomocných tvrdení.
+
+\begin{lema}
+Nech $Y_1, Y_2, \dots$ sú nezávislé Bernoulliho náhodné premenné so strednou
+hodnotou $p>\tfrac{1}{2}$ a $S_{n} = \tfrac{1}{n}\sum_{i=1}^n Y_i$. Potom pre
+ľubovoľné $\eps$ existuje také $k$, že: 
+
+\[P\biggl[\bigcup_{i=k}^\oo(S_{i}\leq\tfrac{1}{2})\biggr] < \eps
+\label{regula:chernoff}\]
+\end{lema}
+\begin{proof}
+Podľa Chernoffovej nerovnosti platí
+\[P(S_i\leq\tfrac{1}{2}) < \exp[-2n(p-\tfrac{1}{2})^2]\,\.\]
+Podľa union bound nerovnosti potom možno \eqref{regula:chernoff} odhadnúť ako
+\[\sum_{i=k}^\oo \exp[-2n(p-\tfrac{1}{2})^2]\]
+Pre pravdepodobnosť z~\eqref{regula:chernoff} dostávame odhad
+\[P < {\exp[-2k(p-\tfrac{1}{2})^2] \over 1 - \exp[-2(p-\tfrac{1}{2})^2]}\,\.\]
+Keďže $p-\tfrac{1}{2} > 0$
+\[\lim_{k\to\oo}{\exp[-2k(p-\tfrac{1}{2})^2] \over 1 -
+\exp[-2(p-\tfrac{1}{2})^2]} = 0\,\.\]
+Čím je dôkaz dokonaný.
+\end{proof}
+
+\begin{dosledok}
+\label{regula:neutec}
+Pre každé $\eps>0$ a $d>0$ existuje $k\in\N$, že ak v~$k$-tej alebo neskoršej
+iterácii algoritmu platilo
+\[\abs{x_\mrm{cur}-\x}<d \label{regula:close}\,,\]
+tak pravdepodobnosť, že pre nejakú neskoršiu iteráciu by táto podmienka prestala
+platiť, je menšia ako $\eps$.
+\end{dosledok}
+\begin{veta}
+Nech $s(k) \geq k$. Potom v~stochastickej verzii regula falsi konverguje 
+$x_\mrm{cur}$ k~$\x$ takmer určite.
+\end{veta}
+\begin{proof}
+Nech $d>0$. Označme $\beta$ menšiu z~hodnôt $\abs{f(\x-d)}$ a $\abs{f(\x+d)}$.
+Keďže $f$ je rastúca, tak pre $x$ mimo intervalu $[\x-d, \x+d]$ platí
+\[P[F(x) = \sgn f(x)] \geq \tfrac{1}{2}(\beta + 1)\,.\] 
+Horeuvedený vzťah popisuje pravdepodobnosť dostať správne znamienko pri jednom
+meraní v~bode $x$. 
+
+V~$k$-tej iterácii je každá použitá hodnota aproximovaná priemerom $s(k)>k$
+hodnôt.
+Podľa Chernoffovej nerovnosti je preto
+pravdepodobnosť namerať v~$k$-tej iterácii nesprávne znamienko pre $x$ mimo
+intervalu $[\x-d, \x+d]$ menšia ako
+\[\exp[-\tfrac{1}{2}k\beta^2]\,\.\label{regula:sign}\]
+
+Hodnôt $x$ mimo intervalu $[\x-d, \x+d]$ je v~$k$-tej iterácii najviac $k$.
+Pravdepodobnosť, že by sme v~tejto iterácii pre niektorú z~nich určili nesprávne
+znamienko je preto menšia ako
+\[k\exp[-\tfrac{1}{2}k\beta^2]\,\.\]
+Nepochybne vieme ku každému $\eps>0$ nájsť také $k$, že horeuvedený výraz bude
+menší ako $\eps$. To však znamená, že v~$(k+1)\.$ iterácii je
+s~pravdepodobnosťou $1-\eps$ bod $x_\mrm{cur}$ od $\x$ vzdialený menej ako $d$. 
+
+Potiaľto sme dokázali konvergenciu podľa pravdepodobnosti k~$\x$. S~využitím
+dôsledku \eqref{regula:neutec} však dostávame silnejšiu konvergenciu takmer
+isto.
+\end{proof}
+
+\subsection{Voľba funkcie $s$}
+Predošlý výsledok ukazuje, že algoritmus takmer isto konverguje k~$\x$ pre
+ľubovoľnú rozumnú funkciu $s$. Napriek tomu má zmysel zamýšľať sa nad jej
+voľbou, pretože tá bude mať veľký vplyv na rýchlosť algoritmu. Pre príliš malé
+$s$ sa bude algoritmus často mýliť a bude preto často merať v~nesprávnych
+bodoch, pre príliš veľké $s$ však naopak bude merať zbytočne veľa hodnôt
+v~každom bode.
+
+Dobrú voľbu $s$ môžeme skúsiť odhadnúť nasledovnou úvahou. V~blízkom okolí
+koreňa funkcie bude vzdialenosť od koreňa približne priamo úmerná veľkosti
+funkcie v~danom bode. Za optimálnych podmienok môžeme očakávať, že v~priemere sa
+každou iteráciou vzdialenosť od koreňa zmenší na polovicu, tým pádom pre veľkosť
+funkcie v~$k$-tej iterácii platí približne vzťah $f(x_k) \propto 2^{-k}$.
+Podľa Chernoffovej nerovnosti potrebujeme na určenie znamienka v~$k$-tej
+iterácii počet meraní úmerný $2^{2k}$. To nasvedčuje, že z~asymptotických
+dôvodov, je rozumné zaoberať sa funkciami, ktoré sú exponenciálne od $k$.
+V~praxi treba opäť zvoliť istý kompromis medzi asymptotikou a chovaním v~prvých
+krokoch, kedy funkciu nemožno aproximovať priamkou. Vtedy, hlavne v~prípadoch
+kedy sú na krajoch dlhé oblasti hodnôt blízkych k~1 a -1, je priveľké $s$
+plytvaním. Sú tu ďalšie možnosti zlepšovania algoritmu tak, aby si $s$ volil
+dynamicky na základe svojich meraní, ale tie idú mimo rozsah tejto práce.

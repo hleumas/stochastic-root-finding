@@ -1,0 +1,159 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{slovak}
+\usepackage[utf8]{inputenc}
+\usepackage{mathab}
+\usepackage{typoconv}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{chngcntr}
+\usepackage{mathrsfs}
+%\usepackage{geometry}
+
+\def\pto{\rightarrow_p}
+\def\x{x^\ast}
+\def\av#1{\langle #1 \rangle}
+\def\[{\begin{equation}}
+\def\]{\end{equation}}
+\def\eps{\varepsilon}
+\def\abs#1{\lvert #1 \rvert}
+\let\cit\cite
+\def\cite#1{ \cit{#1}}
+
+\def\picture#1#2#3{%
+\begin{figure}[H]
+\vspace*{-1.8em}
+\includegraphics{\path#1}
+\caption{#2}
+\label{#3}
+\end{figure}}
+
+\linespread{1.5}
+\counterwithin{equation}{section}
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+
+\def\mftitle{\firsttitle\ \secondtitle}
+\def\firsttitle{Meranie výkonnosti stochastických}
+\def\secondtitle{algoritmov pri hľadaní koreňa}
+\def\mfkod{f5e2ded2-63ac-4ed3-a734-02d67baea342}
+\def\mfthesistype{bakalárska práca}
+\def\mfauthor{Samuel Hapák}
+\def\mfadvisor{RNDr. Tomáš Kulich, PhD.}
+\def\mfplacedate{Bratislava, 2011}
+\def\mfprogram{Matematika}
+\def\mfodbor{9.1.1. Matematika}
+\def\mfdate{2011}
+
+\ifx\pdfoutput\undefined\relax\else\pdfinfo{ /Title (\mftitle) /Author
+(\mfauthor) /Creator (PDFLaTeX) } \fi
+
+\begin{document}
+%\frontmatter
+\pagestyle{empty}
+
+\begin{center}
+{\Large\sc Fakulta Matematiky, Fyziky a Informatiky}
+{\Large\sc Univerzita Komenského, Bratislava}
+\end{center}
+\vfill
+\begin{center}
+
+\centerline{\Huge\sc\firsttitle}
+
+\bigskip
+
+\centerline{\Huge\sc\secondtitle}
+\end{center}
+
+\vfill
+{\bf \mfauthor}
+\hfill{\bf \mfdate}
+\eject % EOP i
+
+\noindent
+\begin{minipage}{0.20\textwidth}
+\includegraphics[width=0.9\textwidth]{komlogo-new}
+\end{minipage}
+\begin{minipage}{0.79\textwidth}
+\begin{center}
+\sc Katedra Matematickej Analýzy a Numerickej Matematiky \\
+Fakulta Matematiky, Fyziky a Informatiky \\
+Univerzita Komenského, Bratislava
+\end{center}
+\end{minipage}
+
+\begin{center}
+\begin{minipage}{0.8\textwidth}
+\hrule
+\bigskip\bigskip
+\centerline{\Large\sc\firsttitle}
+\smallskip
+\centerline{\Large\sc\secondtitle}
+\smallskip
+\centerline{(\mfthesistype)}
+\bigskip
+\bigskip
+\centerline{\large\sc\mfauthor}
+\bigskip\bigskip
+\hrule
+\end{minipage}
+\end{center}
+\vfill
+
+{\bf Študijný program:} \mfprogram
+
+{\bf Študijný odbor:} \mfodbor
+
+{\bf Vedúci:} \mfadvisor
+
+{\bf Kód práce:} \mfkod
+
+\bigskip
+\hfill\mfplacedate
+\eject % EOP i
+
+%\thispagestyle{empty}~\vfill\eject % EOP ii
+
+{~}\vspace{12cm}
+\noindent
+\begin{minipage}{0.25\textwidth}~\end{minipage}
+\begin{minipage}{0.73\textwidth}
+Čestne prehlasujem, že som túto bakalársku prácu \\ vypracoval samostatne
+s~použitím citovaných zdrojov.
+
+\bigskip\bigskip
+
+\hfill\hbox to 6cm{\dotfill}
+\end{minipage}
+\vfill\eject % EOP iii
+
+\begin{abstract}
+\input{abstract.tex}
+\end{abstract}
+\newpage
+\tableofcontents
+%\listoffigures
+\newpage
+\input{uvod.tex}
+\newpage
+\input{znacenie.tex}
+\newpage
+\pagestyle{headings}
+\input{prehlad.tex}
+\newpage
+\input{altruisti.tex}
+\newpage
+\input{metoda_secnic.tex}
+\newpage
+\input{testovanie.tex}
+\newpage
+\input{zaver.tex}
+\newpage
+\appendix
+\input{zoznam_funkcii.tex}
+\newpage
+\input{vysledky_merani.tex}
+\newpage
+\input{bibliografia.tex}
+\end{document}

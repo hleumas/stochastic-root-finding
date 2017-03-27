@@ -1,0 +1,17 @@
+\section{Prehľad existujúcich algoritmov}
+\subsection{Robbins-Monro algoritmus}
+Zvoľme $x_0 \e D$ a postupnosť $\{a_n\}_{n=0}^\oo$ spĺňajúcu podmienky:
+\begin{align}
+\sum_{n=0}^\oo a_n &=\oo\,,\label{linearsum}\\
+\sum_{n=0}^\oo a_n^2 &< \oo\,\.\label{stvorecsum}
+\end{align}
+Pomocou rekurentného vzťahu definujeme postupnosť náhodných premenných $x_n$
+\[x_{n+1} = x_{n} - a_n F(x_n)\,.\label{rekurencia1}\]
+
+V~roku 1951 Robbins a Monro vo svojom článku\cite{monro} dokázali, že takto zvolená
+postupnosť za istých podmienok konverguje podľa pravdepodobnosti k~$\x$.
+My si tu uvedieme jemne upravenú verziu ich dôkazu.
+\subsection{Dôkaz konvergencie Robbins-Monro algoritmu}
+\input{robbins_proof.tex}
+\subsection{Stochastická Newton-Raphsonová metóda}
+\input{stochastic_newton.tex}

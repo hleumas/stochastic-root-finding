@@ -1,0 +1,27 @@
+#!/usr/bin/gnuplot
+load 'include'
+
+set output 'linear.eps'
+set title 'Linearna'
+plot (x<-1?-1:(x>1?1:x))
+
+set output 'cubic.eps'
+set title 'Kubicka'
+plot (x<-1?-1:(x>1?1:x**3))
+
+
+set output 'sigmoid.eps'
+set title 'Sigmoida'
+plot sigmoid(x)
+
+set output 'cauchy.eps'
+set title 'Cauchy'
+plot cauchy(x)
+
+set output 'erf.eps'
+set title 'Erf'
+plot erf(x)
+
+set output 'sgn.eps'
+set title 'Sgn'
+plot sgn(x)

@@ -1,0 +1,30 @@
+\section{Prehľad testovaných funkcií}
+Počas testovania bolo použitých niekoľko funkcií, ich grafy a vlastnosti
+uvádzame v~tejto prílohe
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\toprule
+Názov&Definícia&Derivácia v~bode 0\\
+\midrule
+Lineárna&$x$&1\\
+Kubická&$x^3$&0\\
+Sigmoida&$2[1+\exp(-x)]^{-1}-1$&$0.5$\\
+Cauchyho&$2\pi^{-1}\arctan(x)$&$2\pi^{-1}\approx 0.63$\\
+Erf&$\pi^{-1/2}\int_{-x}^x \exp(-x^2)\de x$ &$2\pi^{-1/2}\approx 1.13$\\
+Sgn&$\sgn(x)$&$\oo$\\
+\bottomrule
+
+\end{tabular}
+\caption{Vlastnosti testovaných funkcií}
+\label{zoznamFunkcii}
+\end{table}
+
+\def\path{grafy/prehlad_funkcii/}%
+\picture{linear.eps}{Priebeh lineárnej funkcie}{}
+\picture{cubic.eps}{Priebeh kubickej funkcie}{}
+\picture{sigmoid.eps}{Priebeh sigmoidy}{}
+\picture{cauchy.eps}{Priebeh Cauchyho funkcie}{}
+\picture{erf.eps}{Priebeh Erf}{}
+\picture{sgn.eps}{Priebeh Sgn}{}

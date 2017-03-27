@@ -1,0 +1,21 @@
+\section{Záver}
+V~úvode práce sme si predstavili SRF problém a zoznámili sa s~algoritmami na
+jeho riešenie i praktickú motiváciu. Uviedli sme dôkaz konvergencie pre vôbec
+prvý SRFP algoritmus od Robbinsa a Monroa\cite{monro} a zoznámili sa so
+zaujímavým pokusom o~jeho vylepšenie od Dan Anbara\cite{anbar}. V~tretej
+kapitole sme predstavili vlastnú stochastickú adaptáciu na metódu regula falsi a
+ukázali, že za podmienok binárneho experimentu rieši SRFP takmer isto. 
+
+V~záverečnej kapitole sme všetky tri algoritmy podrobili dôkladnému
+testovaniu, kedy sme preskúmali ich asymptotické vlastnosti, rýchlosť
+počiatočnej konvergencie a ďalšie parametre.  Ukázalo sa, že Stochastická
+adaptácia Newtonovej metódy\cite{anbar} od Dana Anbara je pre účely binárneho
+experimentu v~pôvodnom tvare nepoužiteľná, avšak po drobnej modifikácii sa stala
+veľmi výkonnou pri niektorých inštanciách problému. Takto modifikovaná Newtonova
+metóda aj metóda regula falsi mali veľmi podobné charakteristiky, v~meraniach sa
+však ukazovalo, že regula falsi je vo väčšine prípadov jemne výkonnejšia. Tieto
+dve metódy vhodne dopĺňala metóda Robbins-Monro\cite{monro}, ktorá bola
+jednoznačne najvýkonnejšou metódou pokiaľ sa jednalo o~konvergenciu na úseku
+okolo koreňa, kde bolo možné funkciu dobre lineárne aproximovať. Zvyšným dvom
+metódam sa skôr darilo v~prípade prudko meniacich sa funkcií, na ktoré sa vedeli
+lepšie adaptovať.

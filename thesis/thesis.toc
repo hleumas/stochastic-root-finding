@@ -1,0 +1,30 @@
+\contentsline {section}{\numberline {1}Preh\IeC {\v l}ad existuj\IeC {\'u}cich algoritmov}{10}
+\contentsline {subsection}{\numberline {1.1}Robbins-Monro algoritmus}{10}
+\contentsline {subsection}{\numberline {1.2}D\IeC {\^o}kaz konvergencie Robbins-Monro algoritmu}{10}
+\contentsline {subsection}{\numberline {1.3}Stochastick\IeC {\'a} Newton-Raphsonov\IeC {\'a} met\IeC {\'o}da}{15}
+\contentsline {section}{\numberline {2}Motiv\IeC {\'a}cia bin\IeC {\'a}rneho SRFP}{17}
+\contentsline {subsection}{\numberline {2.1}Pre\IeC {\v c}o \IeC {\v l}udia konaj\IeC {\'u} dobro?}{17}
+\contentsline {subsection}{\numberline {2.2}Defin\IeC {\'\i }cia bin\IeC {\'a}rneho SRFP}{18}
+\contentsline {section}{\numberline {3}Stochastick\IeC {\'a} met\IeC {\'o}da regula falsi}{19}
+\contentsline {subsection}{\numberline {3.1}Motiv\IeC {\'a}cia}{19}
+\contentsline {subsection}{\numberline {3.2}Stochastick\IeC {\'a} verzia}{19}
+\contentsline {subsection}{\numberline {3.3}D\IeC {\^o}kaz konvergencie}{21}
+\contentsline {subsection}{\numberline {3.4}Vo\IeC {\v l}ba funkcie $s$}{23}
+\contentsline {section}{\numberline {4}Metodika testovania}{24}
+\contentsline {subsection}{\numberline {4.1}Dodato\IeC {\v c}n\IeC {\'e} predpoklady pri implement\IeC {\'a}cii algoritmov}{24}
+\contentsline {subsection}{\numberline {4.2}Testovan\IeC {\'e} parametre}{25}
+\contentsline {subsection}{\numberline {4.3}Stochastick\IeC {\'y} Newtonov algoritmus}{26}
+\contentsline {subsection}{\numberline {4.4}Vo\IeC {\v l}ba zahadzovacej funkcie pre Newtonov algoritmus}{27}
+\contentsline {subsection}{\numberline {4.5}Vo\IeC {\v l}ba funkcie $s$ pre met\IeC {\'o}du regula falsi}{27}
+\contentsline {subsection}{\numberline {4.6}Distrib\IeC {\'u}cia v\IeC {\'y}sledkov predpovedan\IeC {\'y}ch algoritmami}{28}
+\contentsline {subsection}{\numberline {4.7}Asymptotick\IeC {\'e} spr\IeC {\'a}vanie sa algoritmov}{29}
+\contentsline {subsection}{\numberline {4.8}Schopnos\IeC {\v t} vysporiada\IeC {\v t} sa s\nobreakspace {}monot\IeC {\'o}nnymi oblas\IeC {\v t}ami}{29}
+\contentsline {subsection}{\numberline {4.9}Testy na \IeC {\v d}al\IeC {\v s}\IeC {\'\i }ch funkci\IeC {\'a}ch}{30}
+\contentsline {section}{\numberline {5}Z\IeC {\'a}ver}{31}
+\contentsline {section}{\numberline {A}Preh\IeC {\v l}ad testovan\IeC {\'y}ch funkci\IeC {\'\i }}{32}
+\contentsline {section}{\numberline {B}V\IeC {\'y}sledky meran\IeC {\'\i }}{36}
+\contentsline {subsection}{\numberline {B.1}Vo\IeC {\v l}ba parametrov pre met\IeC {\'o}dy Newtonova a regula falsi}{36}
+\contentsline {subsection}{\numberline {B.2}Tvar distribu\IeC {\v c}nej funkcie}{38}
+\contentsline {subsection}{\numberline {B.3}Asymptotick\IeC {\'e} spr\IeC {\'a}vanie sa algoritmov}{43}
+\contentsline {subsection}{\numberline {B.4}Mon\IeC {\'o}tonne oblasti}{48}
+\contentsline {subsection}{\numberline {B.5}R\IeC {\^o}zne funkcie}{53}

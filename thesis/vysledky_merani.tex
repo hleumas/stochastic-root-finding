@@ -1,0 +1,97 @@
+\section{Výsledky meraní}
+\subsection{Voľba parametrov pre metódy Newtonova a regula falsi}
+Nasledovné výsledky ukazujú šírku 95\unit{\%} intervalu spoľahlivosti po 1\,000
+krokoch algoritmu. Šírka počiatočného intervalu bola vo všetkých meraniach
+nastavená na 1.
+
+\def\path{grafy/volba_parametra/}%
+\picture{newton_linear.eps}{Šírka intervalu spoľahlivosti pre rôzne hodnoty
+$\gamma$ pre lineárnu funkciu}{parameter:newtonLin}
+\picture{newton_sgn.eps}{Šírka intervalu spoľahlivosti pre rôzne hodnoty
+$\gamma$ pre funkciu $\sgn$}{parameter:newtonSgn}
+\picture{regula_linear.eps}{Šírka intervalu spoľahlivosti pre rôzne hodnoty
+$c$ pre lineárnu funkciu.}{parameter:regulaLin}
+\picture{regula_sgn.eps}{Šírka intervalu spoľahlivosti pre rôzne hodnoty
+$c$ pre funkciu $\sgn$.}{parameter:regulaSgn}
+
+\subsection{Tvar distribučnej funkcie}
+Pri meraniach boli použité tri šírky intervalov: 1024, 16 a $1/16$, algoritmy
+hľadali koreň sigmoidy. Do grafov sú vynesené ich predpovede po 100 krokoch a
+funkcia normálneho rozdelenia so štandardnou odchýlkou rovnou štandardnej
+odchýlke spočítanej z~95\unit{\%} najmenej odchýlených dát.
+\def\path{grafy/gauss/}%
+\picture{bisection_big.eps}{Distribúcia predpovedí Robbins-Monro algoritmu na
+intervale šírky 1024}{gauss:monroBig}
+\picture{bisection_med.eps}{Distribúcia predpovedí Robbins-Monro algoritmu na
+intervale šírky 16}{gauss:monroMed}
+\picture{bisection_small.eps}{Distribúcia predpovedí Robbins-Monro algoritmu na
+intervale šírky 1/16}{gauss:monroSmall}
+\picture{heuristic_big.eps}{Distribúcia predpovedí Newtonovho algoritmu na
+intervale šírky 1024}{gauss:newtonBig}
+\picture{heuristic_med.eps}{Distribúcia predpovedí Newtonovho algoritmu na
+intervale šírky 16}{gauss:newtonMed}
+\picture{heuristic_small.eps}{Distribúcia predpovedí Newtonovho algoritmu na
+intervale šírky 1/16}{gauss:newtonSmall}
+\picture{secant_big.eps}{Distribúcia predpovedí regula falsi na
+intervale šírky 1024}{gauss:secantBig}
+%\picture{secant_med.eps}{Distribúcia predpovedí Newtonovho algoritmu na
+%intervale šírky 16}{gauss:secantMed}
+\picture{secant_small.eps}{Distribúcia predpovedí regula falsi na
+intervale šírky 1/16}{gauss:secantSmall}
+
+\subsection{Asymptotické správanie sa algoritmov}
+Merali sme lineárnu funkciu na intervale dĺžky 1 so sklonmi 0,01 až 100. Do
+grafov sme vyniesli šírku ich 95\unit{\%} intervalu spoľahlivosti v~závislosti
+od počtu krokov. Spravili sme aj jedno porovnanie originálnej Newtonovej metódy
+s~jej vylepšenou verziou.
+
+\def\path{grafy/asymptotika/}%
+\picture{linearTest0.01.eps}{Šírky intervalov spoľahlivosti pre lineárnu funkciu
+so sklonom 0,01}{}
+\picture{linearTest0.1.eps}{Šírky intervalov spoľahlivosti pre lineárnu funkciu
+so sklonom 0,1}{}
+\picture{linearTest0.5.eps}{Šírky intervalov spoľahlivosti pre lineárnu funkciu
+so sklonom 0,5}{}
+\picture{linearTest1.0.eps}{Šírky intervalov spoľahlivosti pre lineárnu funkciu
+so sklonom 1,0}{}
+\picture{linearTest2.0.eps}{Šírky intervalov spoľahlivosti pre lineárnu funkciu
+so sklonom 2,0}{}
+\picture{linearTest5.0.eps}{Šírky intervalov spoľahlivosti pre lineárnu funkciu
+so sklonom 5,0}{asymptota5}
+\picture{linearTest10.0.eps}{Šírky intervalov spoľahlivosti pre lineárnu funkciu
+so sklonom 10,0}{}
+\picture{linearTest100.0.eps}{Šírky intervalov spoľahlivosti pre lineárnu funkciu
+so sklonom 100,0}{}
+\picture{newtonLinearTest1.0.eps}{Porovnanie originálnej Newtonovej metódy s~metódu
+zlepšenou za pomoci heuristík a s~algoritmom Robbinsa-Monroa. Do grafu sú
+vynesené šírky intervalov spoľahlivosti pre lineárnu funkciu so sklonom
+$1.0$}{lin:newton}
+
+\subsection{Monótonne oblasti}
+Merali sme $\lambda\sgn$ funkciu na intervale dĺžky 1 s~parametrom $\lambda$
+z~intervalu $[0.01, 1]$. Do grafov sme vyniesli šírku ich 95\unit{\%} intervalu
+spoľahlivosti v~závislosti od počtu krokov. Spravili sme aj jedno porovnanie
+originálnej Newtonovej metódy s~jej vylepšenou verziou.
+\def\path{grafy/monotonne/}%
+\picture{sgnTest0.01.eps}{Šírky intervalov spoľahlivosti pre $0.01\sgn$}{}
+\picture{sgnTest0.1.eps}{Šírky intervalov spoľahlivosti pre $0.1\sgn$}{}
+\picture{sgnTest0.2.eps}{Šírky intervalov spoľahlivosti pre $0.2\sgn$}{}
+\picture{sgnTest0.4.eps}{Šírky intervalov spoľahlivosti pre $0.4\sgn$}{sgn:04}
+\picture{sgnTest0.6.eps}{Šírky intervalov spoľahlivosti pre $0.6\sgn$}{}
+\picture{sgnTest0.8.eps}{Šírky intervalov spoľahlivosti pre $0.8\sgn$}{}
+\picture{sgnTest1.0.eps}{Šírky intervalov spoľahlivosti pre $1.0\sgn$}{sgn:max}
+\picture{newtonSgnTest1.0.eps}{Porovnanie originálnej Newtonovej metódy s~metódu
+zlepšenou za pomoci heuristík a s~algoritmom Robbinsa-Monroa. Do grafu sú
+vynesené šírky intervalov spoľahlivosti pre $1.0\sgn$}{sgn:newton}
+
+\subsection{Rôzne funkcie}
+Na záver výsledky meraní na funkciách z~tabuľky \ref{zoznamFunkcii}. Všetky
+funkcie boli merané na intervale dĺžky 5 a do grafov sme vyniesli šírku ich
+95\unit{\%} intervalu spoľahlivosti.
+\def\path{grafy/all/}%
+\picture{cubic.eps}{Šírky intervalov spoľahlivosti pre kubickú
+funkciu}{all:cubic}
+\picture{sigmoid.eps}{Šírky intervalov spoľahlivosti pre sigmoidu}{all:sigmoid}
+\picture{erf.eps}{Šírky intervalov spoľahlivosti pre erf}{all:erf}
+\picture{cauchy.eps}{Šírky intervalov spoľahlivosti pre Cauchyho
+funkciu}{all:cauchy}
